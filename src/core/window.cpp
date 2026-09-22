@@ -3,6 +3,11 @@
 int Window::init(const int width, const int height) {
     assert(this->init_glfw() != -1 && "Glfw failed to init");
 
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
     this->window = glfwCreateWindow(width, height, "Testing", NULL, NULL);
     if (!this->window) {
         std::cout << "Window was unable to be created!\n";
@@ -23,26 +28,15 @@ int Window::init_glfw() const {
     return 0;
 }
 int Window::init_glad() const {
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
     return 0;
 }
 
-bool Window::should_close() {
-    return glfwWindowShouldClose(this->window);
+bool Window::should_close() { return glfwWindowShouldClose(this->window); }
+void Window::poll_events() { glfwPollEvents(); }
+void Window::swap_buffers() { glfwSwapBuffers(this->window); }
 
-}
-void Window::poll_events() {
-    glfwPollEvents();
-
-}
-void Window::swap_buffers() {
-    glfwSwapBuffers(this->window);
-}
-
-void Window::close_window() {
-    glfwSetWindowShouldClose(this->window,  GL_TRUE);
-}
+void Window::close_window() { glfwSetWindowShouldClose(this->window, GL_TRUE); }

@@ -1,5 +1,5 @@
-#include "game.hpp"
 #include "core/window.hpp"
+#include "game.hpp"
 
 int main() {
     Game game{};
