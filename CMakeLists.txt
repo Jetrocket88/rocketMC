@@ -19,6 +19,9 @@ add_executable(${PROJECT_NAME}
     src/core/input.cpp
     src/renderer/renderer.cpp
     src/game.cpp
+    src/gameplay/chunk.cpp
+    src/assets/asset_manager.cpp
+    src/renderer/shader.cpp
     vendor/glad/src/glad.c
 )
 

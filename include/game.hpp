@@ -8,12 +8,14 @@
 #include "core/input.hpp"
 #include "core/window.hpp"
 #include "renderer/renderer.hpp"
+#include "assets/asset_manager.hpp"
 
 class Game {
   private:
     Window window{};
     Renderer renderer{};
     Input input{};
+    AssetManager asset_manager{};
 
     const int m_window_width {1920};
     const int m_window_height{1080};

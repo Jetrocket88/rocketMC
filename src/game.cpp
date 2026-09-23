@@ -1,27 +1,10 @@
 #include "game.hpp"
+#include "gameplay/chunk.hpp"
 
 void Game::init() {
     window.init(m_window_width, m_window_height);
     renderer.init();
     renderer.viewport(m_window_width, m_window_height);
-
-    // Testing the renderer first so we can setup a camera
-    std::vector<Vertex> vertices = {
-        {{-0.5f, -0.5f, 0.0f}, {0.0f, 0.0f}},
-        {{0.5f, -0.5f, 0.0f}, {1.0f, 0.0f}},
-        {{0.0f, 0.5f, 0.0f}, {0.5f, 1.0f}},
-    };
-
-    std::vector<uint32_t> indices = {0, 1, 2};
-
-    Mesh mesh{.vertices = vertices, .indices = indices};
-
-    RenderCommand cmd{
-        .mesh      = &mesh,
-        .transform = glm::mat4(1.0f),
-    };
-
-    renderer.submit(cmd);
 }
 
 void Game::run() {
@@ -54,13 +37,17 @@ void Game::shutdown() {
 }
 
 // TODO:
-// Change "Mesh" to ChunkMesh which contains: vertices and indexes
-// Implement a GPUMesh which contains: VAO, VBO, IBO
+// Change "Mesh" to ChunkMesh which contains: vertices and indexes **
+// Implement a GPUMesh which contains: VAO, VBO, IBO **
 // After we have the ChunkMesh, we should make some function in the renderer, which converts the
 // ChunkMesh into GPUMesh
 // After that, we can reword the renderer pipeline to take in the GPUMesh
 // After that, we can implement the VAO, IBO and VBO systems correctly either within the renderer
-// See green_eng for how to do this 
+// See green_eng for how to do this
 // After that, we should see a triangle on the screen
 // After that, we can work on implementing the camera, see openGL and green_eng
 // Those are the goals for tomorrwo
+//
+//
+// Note:
+// We pass in the ChunkMesh to the renderer to be converted to a gpu mesh
