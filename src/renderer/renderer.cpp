@@ -32,17 +32,25 @@ void Renderer::begin_frame() {
     this->submit(this->cmd);
 }
 
-void Renderer::render() {
+void Renderer::render(const Camera& cam) {
     while (!m_render_queue.empty()) {
         auto& cmd = m_render_queue.front();
         m_render_queue.pop();
-        std::cout << "The cmd has been popped from the queue\n";
 
         voxel_shader.bind();
+
+        glm::mat4 view_matrix = cam.get_view_matrix();
+        voxel_shader.set_mat4f("view", &view_matrix);
+
+        glm::mat4 projection_matrix = cam.get_projection_matrix();
+        voxel_shader.set_mat4f("projection", &projection_matrix);
+
+        //cmd.transform = glm::rotate(cmd.transform, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f)); 
+        cmd.transform = glm::mat4(1.0f);
+        voxel_shader.set_mat4f("model", &cmd.transform);
+
         glBindVertexArray(cmd.gpu_mesh->vao);
-        cmd.transform = glm::mat4(0.5f);
         glDrawArrays(GL_TRIANGLES, 0, 3);
-        std::cout << "The cmd should have been drawn\n";
     }
 }
 
@@ -67,7 +75,7 @@ GPUMesh Renderer::create_gpu_mesh(const std::vector<Vertex> &vertices,
     glBindVertexArray(vao);
 
     //Could cause a problem, taking an address of a reference
-    constexpr size_t vertices_size = sizeof(Vertex) * sizeof(vertices);
+    const size_t vertices_size = sizeof(Vertex) * vertices.size();
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, vertices_size, vertices.data(), GL_STATIC_DRAW);
@@ -78,10 +86,10 @@ GPUMesh Renderer::create_gpu_mesh(const std::vector<Vertex> &vertices,
     //GL_FALSE is something to do with it being normalised
     //3 * sizeof(float) is the stride length in bytes
     //(void*)0 is inital offset for the stride
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)offsetof(Vertex, uv));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
     glEnableVertexAttribArray(1);
 
     //Unbind it because we don't need to be bound now

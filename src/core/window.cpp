@@ -40,3 +40,18 @@ void Window::poll_events() { glfwPollEvents(); }
 void Window::swap_buffers() { glfwSwapBuffers(this->window); }
 
 void Window::close_window() { glfwSetWindowShouldClose(this->window, GL_TRUE); }
+
+
+void Window::hide_cursor() {
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+}
+void Window::show_cursor() {
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
+/*
+void Window::set_mouse_callback(void (*mouse_callback)(GLFWwindow* window, double xpos, double ypos)) {
+    glfwSetCursorPosCallback(window, mouse_callback);
+}
+*/

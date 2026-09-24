@@ -22,6 +22,7 @@ add_executable(${PROJECT_NAME}
     src/gameplay/chunk.cpp
     src/assets/asset_manager.cpp
     src/renderer/shader.cpp
+    src/renderer/camera.cpp
     vendor/glad/src/glad.c
 )
 

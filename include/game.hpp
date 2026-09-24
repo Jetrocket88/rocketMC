@@ -9,6 +9,7 @@
 #include "core/window.hpp"
 #include "renderer/renderer.hpp"
 #include "assets/asset_manager.hpp"
+#include "renderer/camera.hpp"
 
 class Game {
   private:
@@ -16,14 +17,20 @@ class Game {
     Renderer renderer{};
     Input input{};
     AssetManager asset_manager{};
+    Camera cam{};
 
     const int m_window_width {1920};
     const int m_window_height{1080};
 
+    float delta_time{0.0f};
+    float last_frame{0.0f};
+
+    void calc_dt();
+
   public:
     void init();
     void run();
-    void update(float dt = 0.0f);
+    void update();
     void end();
     void shutdown();
 };

@@ -4,6 +4,7 @@
 #include "assets/asset_manager.hpp"
 #include "renderer/shader.hpp"
 #include "renderer/vertex.hpp"
+#include "renderer/camera.hpp"
 
 #include <glad/glad.h>
 #include <glfw3.h>
@@ -27,7 +28,7 @@ class Renderer {
   public:
     void init();
     void begin_frame();
-    void render();
+    void render(const Camera& cam);
     void end_frame();
     void viewport(const int width, const int height);
     void submit(const RenderCommand &cmd);
