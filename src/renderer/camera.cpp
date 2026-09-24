@@ -45,8 +45,6 @@ void Camera::update(glm::vec2& mouse_delta, float dt) {
     m_camera_up    = glm::normalize(glm::cross(m_camera_right, m_camera_front));
 
     m_view = glm::lookAt(m_camera_pos, m_camera_pos + m_camera_front, m_camera_up);
-    //std::cerr << "m_camera_front: (x, y, z): (" << m_camera_front.x << ", " << m_camera_front.y << ", " << m_camera_front.z << ")\n";
-    //std::cerr << "m_up: (x, y, z): (" << m_up.x << ", " << m_up.y << ", " << m_up.z << ")\n";
 }
 
 void Camera::on_mouse_move(double x, double y) {
@@ -82,32 +80,31 @@ void Camera::on_mouse_move(double x, double y) {
 }
 
 // Fix: the camera should not be able to move, only the player
-void Camera::handle_movement(const KeyData &inputs, float dt) {
-    if (Input::key_active(inputs, GLFW_KEY_W)) {
+void Camera::handle_movement(const Input& inputs, float dt) {
+    if (inputs.key_active(GLFW_KEY_W)) {
         m_camera_pos.x += m_cam_speed * m_camera_front.x * dt;
         m_camera_pos.z += m_cam_speed * m_camera_front.z * dt;
     }
-    if (Input::key_active(inputs, GLFW_KEY_S)) {
+    if (inputs.key_active(GLFW_KEY_S)) {
         m_camera_pos.x -= m_cam_speed * m_camera_front.x * dt;
         m_camera_pos.z -= m_cam_speed * m_camera_front.z * dt;
     }
 
-    if (Input::key_active(inputs, GLFW_KEY_D)) {
+    if (inputs.key_active(GLFW_KEY_D)) {
         m_camera_pos += m_cam_speed * m_camera_right * dt;
     }
-    if (Input::key_active(inputs, GLFW_KEY_A)) {
+    if (inputs.key_active(GLFW_KEY_A)) {
         m_camera_pos -= m_cam_speed * m_camera_right * dt;
     }
 
-    if (Input::key_active(inputs, GLFW_KEY_LEFT_SHIFT)) {
+    if (inputs.key_active(GLFW_KEY_LEFT_SHIFT)) {
         m_camera_pos -= m_cam_speed * m_camera_up * dt;
     }
-    if (Input::key_active(inputs, GLFW_KEY_SPACE)) {
-        std::cout << "Space pressed!\n";
+    if (inputs.key_active(GLFW_KEY_SPACE)) {
         m_camera_pos += m_cam_speed * m_camera_up * dt;
     }
 
-    if (Input::key_pressed(inputs, GLFW_KEY_LEFT_CONTROL)) {
+    if (inputs.key_pressed(GLFW_KEY_LEFT_CONTROL)) {
         if (m_movement_type == WALK) {
             m_movement_type  = MovementType::SPRINT;
             m_cam_speed     *= m_sprint_speed;

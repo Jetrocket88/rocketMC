@@ -16,7 +16,7 @@ class Camera {
     void init(const size_t width, const size_t height);
     void update(glm::vec2& mouse_delta, float dt);
     void on_mouse_move(double x, double y);
-    void handle_movement(const KeyData& inputs, float dt); //BAD
+    void handle_movement(const Input& inputs, float dt); //BAD
 
     glm::mat4 get_view_matrix() const { return m_view; }
     glm::mat4 get_projection_matrix() const { return m_projection; }

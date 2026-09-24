@@ -25,7 +25,7 @@ class Game {
     float delta_time{0.0f};
     float last_frame{0.0f};
 
-    void calc_dt();
+    void calculate_dt();
 
   public:
     void init();

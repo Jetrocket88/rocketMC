@@ -6,8 +6,7 @@ void Input::init(GLFWwindow *window) {
     glfwSetScrollCallback(window, Input::scroll_callback);
 };
 
-bool Input::key_pressed(int key) const { return m_keys[key] && !m_prev_keys[key]; }
-
+bool Input::key_pressed(int key) const { return m_prev_keys[key] && !m_keys[key]; }
 bool Input::key_active(int key) const { return m_keys[key]; }
 
 void Input::poll_input(GLFWwindow *window) {
@@ -18,15 +17,9 @@ void Input::poll_input(GLFWwindow *window) {
     }
 }
 
-bool Input::key_pressed(const KeyData &data, int key) {
-    return data.keys[key] && !data.prev_keys[key];
-}
-
-bool Input::key_active(const KeyData &data, int key) { return data.keys[key]; }
-
 void Input::mouse_pos_callback(GLFWwindow *window, double xpos, double ypos) {
     auto *self = static_cast<Input *>(glfwGetWindowUserPointer(window));
-    //std::cout << "xpos: " << xpos << " ypos: " << ypos << '\n';
+    // std::cout << "xpos: " << xpos << " ypos: " << ypos << '\n';
     if (!self)
         return;
     if (self->first_mouse) {

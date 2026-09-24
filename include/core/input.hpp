@@ -27,9 +27,6 @@ class Input {
     bool key_pressed(int key) const;
     bool key_active(int key) const;
 
-    static bool key_pressed(const KeyData &data, int key);
-    static bool key_active(const KeyData &data, int key);
-
     void end_frame();
 
     float m_mouse_delta_x{};
