@@ -17,6 +17,9 @@ int Window::init(const int width, const int height) {
     glfwMakeContextCurrent(this->window);
 
     assert(this->init_glad() != -1 && "Glfw failed to init");
+
+    this->set_vsync(0);
+
     return 0;
 }
 
@@ -48,6 +51,10 @@ void Window::hide_cursor() {
 }
 void Window::show_cursor() {
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
+void Window::set_vsync(const int mode) {
+    glfwSwapInterval(mode);
 }
 
 /*

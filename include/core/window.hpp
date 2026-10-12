@@ -23,4 +23,5 @@ public:
     int init(const int width = 800, const int height = 600);
     void set_mouse_callback(void (*mouse_callback)(GLFWwindow* window, double xpos, double ypos));
     void close_window();
+    void set_vsync(const int mode);
 };

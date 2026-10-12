@@ -1,4 +1,3 @@
-#include "core/window.hpp"
 #include "game.hpp"
 
 int main() {

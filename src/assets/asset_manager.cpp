@@ -18,3 +18,11 @@ std::string AssetManager::load_txt_file(const char* path) {
     out.append(buf, 0, stream.gcount());
     return out;
 };
+
+unsigned char* AssetManager::load_texture_file(const char* path, int* width, int* height, int* nrChannels) {
+    return stbi_load(path, width, height, nrChannels, 0);
+}
+
+void AssetManager::image_free(unsigned char* data) {
+    stbi_image_free(data);
+}

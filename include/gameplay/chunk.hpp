@@ -19,7 +19,8 @@ class Chunk {
     std::array<BlockType, 16 * 16 * 256> m_blocks{};
 
   public:
-    //Generates the chunk mesh from the visible faces
-    //and adds that information to the internal chunk mesh struct
+    // Generates the chunk mesh from the visible faces
+    // and adds that information to the internal chunk mesh struct
     void generate_chunk_mesh();
+    ChunkMesh get_chunk_mesh() { return m_chunk_mesh; };
 };

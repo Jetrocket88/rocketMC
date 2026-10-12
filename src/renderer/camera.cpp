@@ -1,11 +1,11 @@
 #include "renderer/camera.hpp"
 
 void Camera::init(const size_t width, const size_t height) {
-    m_camera_pos   = glm::vec3(0.0f, 0.0f, 3.0f);
+    m_camera_pos   = glm::vec3(0.0f, 0.0f, 2.0f);
     m_camera_front = glm::vec3(0.0f, 0.0f, -1.0f);
     m_camera_up    = glm::vec3(0.0f, 1.0f, 0.0f);
     m_up           = glm::vec3(0.0f, 1.0f, 0.0f);
-    m_yaw          = -90.0f;
+    m_yaw          = 270.0f;
     m_pitch        = 0.0f;
     m_cam_speed    = 1.127f;
     first_mouse    = true;

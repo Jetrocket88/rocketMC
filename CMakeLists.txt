@@ -15,14 +15,23 @@ find_package(glm CONFIG REQUIRED)
 add_executable(${PROJECT_NAME}
     src/main.cpp
     src/game.cpp
+
     src/core/window.cpp
     src/core/input.cpp
+    src/core/frame_timer.cpp
+
     src/renderer/renderer.cpp
-    src/game.cpp
-    src/gameplay/chunk.cpp
     src/assets/asset_manager.cpp
+
     src/renderer/shader.cpp
     src/renderer/camera.cpp
+
+    src/renderer/texture.cpp
+
+    src/gameplay/chunk.cpp
+    src/gameplay/world.cpp
+
+
     vendor/glad/src/glad.c
 )
 
@@ -34,10 +43,15 @@ set_target_properties(glfw PROPERTIES
         ${PROJECT_SOURCE_DIR}/vendor/GLFW/include
 ) 
 
+add_library(stb_image STATIC ${PROJECT_SOURCE_DIR}/vendor/stb/stb_image.cpp)
+target_include_directories(stb_image SYSTEM PUBLIC ${PROJECT_SOURCE_DIR}/vendor/stb)
+
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${PROJECT_SOURCE_DIR}/include
     ${PROJECT_SOURCE_DIR}/vendor/glad/include
+    ${PROJECT_SOURCE_DIR}/vendor/stb
 )
+target_link_libraries(${PROJECT_NAME} PRIVATE stb_image)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE glm::glm)
 target_link_libraries(${PROJECT_NAME} PRIVATE 
